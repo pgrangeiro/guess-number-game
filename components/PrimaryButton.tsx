@@ -1,7 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { PropsWithChildren } from "react";
 
-function PrimaryButton({ children }: PropsWithChildren) {
+interface PrimartButtonInput extends PropsWithChildren {
+  onPressHandler: () => void;
+}
+
+function PrimaryButton({ children, onPressHandler }: PrimartButtonInput) {
   return (
     <View style={styles.outerContainer}>
       <Pressable
@@ -10,6 +14,7 @@ function PrimaryButton({ children }: PropsWithChildren) {
             ? [styles.innerContainer, styles.pressed]
             : styles.innerContainer
         }
+        onPress={onPressHandler}
       >
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>
