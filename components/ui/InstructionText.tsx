@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   instructionText: {
     color: Color.SECONDARY_500,
     fontSize: 16,
+    marginBottom: 8,
   },
 });
 export default InstructionText;

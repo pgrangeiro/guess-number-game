@@ -3,12 +3,13 @@ import { PropsWithChildren } from "react";
 import { Color } from "../../utils/colors";
 
 interface PrimartButtonInput extends PropsWithChildren {
+  style?: any;
   onPress: () => void;
 }
 
-function PrimaryButton({ children, onPress }: PrimartButtonInput) {
+function PrimaryButton({ children, style, onPress }: PrimartButtonInput) {
   return (
-    <View style={styles.outerContainer}>
+    <View style={[styles.outerContainer, style]}>
       <Pressable
         style={({ pressed }) =>
           pressed
@@ -25,7 +26,6 @@ function PrimaryButton({ children, onPress }: PrimartButtonInput) {
 
 const styles = StyleSheet.create({
   outerContainer: {
-    flex: 1,
     margin: 4,
   },
   innerContainer: {

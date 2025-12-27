@@ -1,19 +1,20 @@
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, FlatList } from "react-native";
 import Title from "../components/ui/Title";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 import { Color } from "../utils/colors";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import { GameRound } from "../App";
 
 interface GameOverScreenInput {
   inputNumber: number;
-  roundsNumber: number;
+  rounds: GameRound[];
   onRestart: () => void;
 }
 
 function GameOverScreen({
   inputNumber,
-  roundsNumber,
+  rounds,
   onRestart,
 }: GameOverScreenInput) {
   return (
@@ -29,13 +30,25 @@ function GameOverScreen({
         <Text style={styles.gameSummaryText}>
           Number<Text style={styles.gameSummaryHighlight}> {inputNumber} </Text>
           guessed after
-          <Text style={styles.gameSummaryHighlight}> {roundsNumber} </Text>
+          <Text style={styles.gameSummaryHighlight}> {rounds.length} </Text>
           rounds
         </Text>
       </View>
       <Card style={styles.bodyContainer}>
         <InstructionText>Match History</InstructionText>
-        <PrimaryButton onPress={onRestart}>Restart</PrimaryButton>
+        <View style={styles.logContainer}>
+          <FlatList
+            data={rounds}
+            renderItem={(data) => (
+              <Text>
+                <Text style={[styles.gameSummaryHighlight, styles.gameLogText]}>
+                  #{data.item.index}: Phone guessed {data.item.guessedNumber}
+                </Text>
+              </Text>
+            )}
+          ></FlatList>
+          <PrimaryButton onPress={onRestart}>Restart</PrimaryButton>
+        </View>
       </Card>
     </View>
   );
@@ -72,6 +85,13 @@ const styles = StyleSheet.create({
   },
   gameSummaryHighlight: {
     color: Color.SECONDARY_500,
+  },
+  logContainer: {
+    flex: 1,
+  },
+  gameLogText: {
+    fontSize: 14,
+    marginBottom: 8,
   },
 });
 

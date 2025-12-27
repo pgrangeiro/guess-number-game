@@ -45,8 +45,12 @@ function StartGameScreen({ onStartGame }: StartGameScreenInput) {
           onChangeText={setInputNumber}
         ></TextInput>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-          <PrimaryButton onPress={startGameHandler}>Start</PrimaryButton>
+          <PrimaryButton style={styles.button} onPress={resetInputHandler}>
+            Reset
+          </PrimaryButton>
+          <PrimaryButton style={styles.button} onPress={startGameHandler}>
+            Start
+          </PrimaryButton>
         </View>
       </Card>
     </View>
@@ -60,6 +64,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+  },
+  button: {
+    flex: 1,
   },
   textInput: {
     height: 64,

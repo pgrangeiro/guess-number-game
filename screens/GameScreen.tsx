@@ -28,7 +28,7 @@ type InputDirection = "+" | "-";
 interface GameScreenInput {
   chosenNumber: number;
   onGameOver: () => void;
-  onNextRound: () => void;
+  onNextRound: (guessedNumber: number) => void;
 }
 
 let [minBoundary, maxBoundary] = [MinMaxNumber.MIN, MinMaxNumber.MAX];
@@ -46,6 +46,7 @@ function GameScreen({
   const [guessedNumber, setGuessedNumber] = useState(initialGuess);
 
   useEffect(() => {
+    onNextRound(guessedNumber);
     if (isGameOver()) {
       Alert.alert("Nice Try Diddy!", "I won! You Lose!", [
         {
@@ -55,7 +56,11 @@ function GameScreen({
         },
       ]);
     }
-  }, [guessedNumber, chosenNumber, onGameOver]);
+  }, [guessedNumber]);
+
+  useEffect(() => {
+    [minBoundary, maxBoundary] = [MinMaxNumber.MIN, MinMaxNumber.MAX];
+  }, []);
 
   function isFairGame(selectedDirection: InputDirection): boolean {
     const direction = directionMap[selectedDirection];
@@ -87,7 +92,6 @@ function GameScreen({
       guessedNumber
     );
     setGuessedNumber(nextGuess);
-    onNextRound();
   }
 
   return (
@@ -97,10 +101,16 @@ function GameScreen({
       <Card>
         <InstructionText>Higher or Lower?</InstructionText>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={() => onNextGuessHandler(Direction.LOWER)}>
+          <PrimaryButton
+            style={styles.button}
+            onPress={() => onNextGuessHandler(Direction.LOWER)}
+          >
             <AntDesign name="minus" size={16}></AntDesign>
           </PrimaryButton>
-          <PrimaryButton onPress={() => onNextGuessHandler(Direction.HIGHER)}>
+          <PrimaryButton
+            style={styles.button}
+            onPress={() => onNextGuessHandler(Direction.HIGHER)}
+          >
             <AntDesign name="plus" size={16}></AntDesign>
           </PrimaryButton>
         </View>
@@ -117,6 +127,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+  },
+  button: {
+    flex: 1,
   },
 });
 

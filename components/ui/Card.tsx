@@ -7,12 +7,12 @@ interface CardInput extends PropsWithChildren {
 }
 
 function Card({ children, style }: CardInput) {
-  return <View style={{ ...styles.cardContainer, ...style }}>{children}</View>;
+  return <View style={[styles.cardContainer, style]}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     margin: 24,
     padding: 16,

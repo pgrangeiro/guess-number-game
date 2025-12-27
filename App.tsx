@@ -7,17 +7,23 @@ import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
 import { Color } from "./utils/colors";
 
+export interface GameRound {
+  index: number;
+  guessedNumber: number;
+}
+
 interface UserGame {
   hasStarted: boolean;
   isOver: boolean;
   inputNumber?: number;
-  roundsNumber?: number;
+  rounds: GameRound[];
 }
 
 export default function App() {
   const [game, setGame] = useState<UserGame>({
     hasStarted: false,
     isOver: false,
+    rounds: [],
   });
 
   let currentScreen = (
@@ -43,7 +49,7 @@ export default function App() {
       <SafeAreaView style={styles.screen}>
         <GameOverScreen
           inputNumber={game.inputNumber!}
-          roundsNumber={game.roundsNumber!}
+          rounds={game.rounds}
           onRestart={onRestartHandler}
         ></GameOverScreen>
       </SafeAreaView>
@@ -51,23 +57,24 @@ export default function App() {
   }
 
   function onStartGameHandler(inputNumber: number) {
-    setGame({ hasStarted: true, isOver: false, roundsNumber: 1, inputNumber });
+    setGame({ ...game, hasStarted: true, isOver: false, inputNumber });
   }
 
   function onGameOverHandler() {
-    const currentGame = { ...game };
-    setGame({ ...currentGame, hasStarted: true, isOver: true });
+    setGame({ ...game, hasStarted: true, isOver: true });
   }
 
   function onRestartHandler() {
-    setGame({ hasStarted: false, isOver: false });
+    setGame({ hasStarted: false, isOver: false, rounds: [] });
   }
 
-  function onNextRoundHandler() {
-    const currentGame = { ...game };
-    const roundsNumber = (currentGame.roundsNumber ?? 0) + 1;
-    setGame({ ...currentGame, roundsNumber });
-    console.log(roundsNumber);
+  function onNextRoundHandler(guessedNumber: number) {
+    const { rounds } = { ...game };
+    const updatedRound = [
+      ...rounds,
+      { index: rounds.length + 1, guessedNumber },
+    ];
+    setGame({ ...game, rounds: updatedRound });
   }
 
   return (
