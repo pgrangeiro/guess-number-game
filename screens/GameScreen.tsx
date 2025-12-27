@@ -27,12 +27,17 @@ type InputDirection = "+" | "-";
 
 interface GameScreenInput {
   chosenNumber: number;
-  onGameOver: (chosenNumber: number) => void;
+  onGameOver: () => void;
+  onNextRound: () => void;
 }
 
 let [minBoundary, maxBoundary] = [MinMaxNumber.MIN, MinMaxNumber.MAX];
 
-function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
+function GameScreen({
+  chosenNumber,
+  onGameOver,
+  onNextRound,
+}: GameScreenInput) {
   const initialGuess = generateRandomNumber(
     minBoundary,
     maxBoundary,
@@ -46,7 +51,7 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
         {
           text: "OK",
           style: "destructive",
-          onPress: () => onGameOver(guessedNumber),
+          onPress: () => onGameOver(),
         },
       ]);
     }
@@ -82,6 +87,7 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
       guessedNumber
     );
     setGuessedNumber(nextGuess);
+    onNextRound();
   }
 
   return (

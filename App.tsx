@@ -1,16 +1,17 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import { ImageBackground, StatusBar, StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import GameOverScreen from "./screens/GameOverScreen";
 import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "./utils/colors";
-import GameOverScreen from "./screens/GameOverScreen";
 
 interface UserGame {
   hasStarted: boolean;
   isOver: boolean;
   inputNumber?: number;
+  roundsNumber?: number;
 }
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
     hasStarted: false,
     isOver: false,
   });
+
   let currentScreen = (
     <SafeAreaView style={styles.screen}>
       <StartGameScreen onStartGame={onStartGameHandler}></StartGameScreen>
@@ -30,6 +32,7 @@ export default function App() {
         <GameScreen
           chosenNumber={game.inputNumber!}
           onGameOver={onGameOverHandler}
+          onNextRound={onNextRoundHandler}
         ></GameScreen>
       </SafeAreaView>
     );
@@ -38,17 +41,33 @@ export default function App() {
   if (game.isOver) {
     currentScreen = (
       <SafeAreaView style={styles.screen}>
-        <GameOverScreen></GameOverScreen>
+        <GameOverScreen
+          inputNumber={game.inputNumber!}
+          roundsNumber={game.roundsNumber!}
+          onRestart={onRestartHandler}
+        ></GameOverScreen>
       </SafeAreaView>
     );
   }
 
   function onStartGameHandler(inputNumber: number) {
-    setGame({ hasStarted: true, isOver: false, inputNumber });
+    setGame({ hasStarted: true, isOver: false, roundsNumber: 1, inputNumber });
   }
 
-  function onGameOverHandler(inputNumber: number) {
-    setGame({ hasStarted: true, isOver: true, inputNumber });
+  function onGameOverHandler() {
+    const currentGame = { ...game };
+    setGame({ ...currentGame, hasStarted: true, isOver: true });
+  }
+
+  function onRestartHandler() {
+    setGame({ hasStarted: false, isOver: false });
+  }
+
+  function onNextRoundHandler() {
+    const currentGame = { ...game };
+    const roundsNumber = (currentGame.roundsNumber ?? 0) + 1;
+    setGame({ ...currentGame, roundsNumber });
+    console.log(roundsNumber);
   }
 
   return (

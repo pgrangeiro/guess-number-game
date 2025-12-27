@@ -2,8 +2,12 @@ import { PropsWithChildren } from "react";
 import { View, StyleSheet } from "react-native";
 import { Color } from "../../utils/colors";
 
-function Card({ children }: PropsWithChildren) {
-  return <View style={styles.cardContainer}>{children}</View>;
+interface CardInput extends PropsWithChildren {
+  style?: any;
+}
+
+function Card({ children, style }: CardInput) {
+  return <View style={{ ...styles.cardContainer, ...style }}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
