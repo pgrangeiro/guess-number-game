@@ -1,7 +1,7 @@
 export enum Color {
-  YELLOW = "#ddb52f",
   WHITE = "#FFFFFF",
   BLACK = "#000000",
-  DARK_PLUM = "#72063C",
-  LIGHT_PLUM = "#8c2357ff",
+  PRIMARY_500 = "#72063C",
+  PRIMARY_100 = "#8c2357ff",
+  SECONDARY_500 = "#ddb52f",
 }
