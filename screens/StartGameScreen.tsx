@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-import { useState } from "react";
+import { Color } from "../utils/colors";
 
-function StartGameScreen() {
+interface StartGameScreenInput {
+  onStartGameHandler: (inputNumber: number) => void;
+}
+
+function StartGameScreen({ onStartGameHandler }: StartGameScreenInput) {
   const [inputNumber, setInputNumber] = useState<string>("");
 
   function resetInputHandler() {
@@ -18,7 +23,10 @@ function StartGameScreen() {
         "The number must be a number between 1 and 99.",
         [{ text: "OK", style: "destructive", onPress: resetInputHandler }]
       );
+      return;
     }
+
+    onStartGameHandler(chosenNumber);
   }
 
   return (
@@ -49,12 +57,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 24,
-    marginVertical: 100,
     padding: 16,
-    backgroundColor: "#72063C",
+    backgroundColor: Color.DARK_PLUM,
     borderRadius: 8,
     elevation: 4,
-    shadowColor: "#000000",
+    shadowColor: Color.BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -74,9 +81,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontSize: 32,
     fontWeight: "bold",
-    color: "#ddb52f",
+    color: Color.YELLOW,
     textAlign: "center",
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Color.YELLOW,
     borderBottomWidth: 2,
   },
 });

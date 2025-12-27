@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { PropsWithChildren } from "react";
+import { Color } from "../utils/colors";
 
 interface PrimartButtonInput extends PropsWithChildren {
   onPressHandler: () => void;
@@ -30,9 +31,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 28,
-    backgroundColor: "#8c2357ff",
+    backgroundColor: Color.LIGHT_PLUM,
     elevation: 2,
-    shadowColor: "#000000",
+    shadowColor: Color.BLACK,
     shadowOpacity: 0.15,
     shadowOffset: {
       height: 1,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     },
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: Color.WHITE,
     textAlign: "center",
   },
   pressed: {
