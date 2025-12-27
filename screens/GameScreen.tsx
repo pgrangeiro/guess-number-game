@@ -24,11 +24,12 @@ type InputDirection = "+" | "-";
 
 interface GameScreenInput {
   chosenNumber: number;
+  onGameOver: (chosenNumber: number) => void;
 }
 
 let [minBoundary, maxBoundary] = [MinMaxNumber.MIN, MinMaxNumber.MAX];
 
-function GameScreen({ chosenNumber }: GameScreenInput) {
+function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
   const initialGuess = generateRandomNumber(
     minBoundary,
     maxBoundary,
@@ -68,7 +69,13 @@ function GameScreen({ chosenNumber }: GameScreenInput) {
     setGuessedNumber(nextGuess);
 
     if (isGameOver(nextGuess)) {
-      Alert.alert("Game Over!", "I won! You Lose!");
+      Alert.alert("Game Over!", "I won! You Lose!", [
+        {
+          text: "OK",
+          style: "destructive",
+          onPress: () => onGameOver(nextGuess),
+        },
+      ]);
     }
   }
 
@@ -79,14 +86,10 @@ function GameScreen({ chosenNumber }: GameScreenInput) {
       <View>
         <Text>Higher or Lower?</Text>
         <View>
-          <PrimaryButton
-            onPressHandler={() => onNextGuessHandler(Direction.LOWER)}
-          >
+          <PrimaryButton onPress={() => onNextGuessHandler(Direction.LOWER)}>
             -
           </PrimaryButton>
-          <PrimaryButton
-            onPressHandler={() => onNextGuessHandler(Direction.HIGHER)}
-          >
+          <PrimaryButton onPress={() => onNextGuessHandler(Direction.HIGHER)}>
             +
           </PrimaryButton>
         </View>

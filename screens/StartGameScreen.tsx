@@ -4,10 +4,10 @@ import { Color } from "../utils/colors";
 import PrimaryButton from "../components/ui/PrimaryButton";
 
 interface StartGameScreenInput {
-  onStartGameHandler: (inputNumber: number) => void;
+  onStartGame: (inputNumber: number) => void;
 }
 
-function StartGameScreen({ onStartGameHandler }: StartGameScreenInput) {
+function StartGameScreen({ onStartGame }: StartGameScreenInput) {
   const [inputNumber, setInputNumber] = useState<string>("");
 
   function resetInputHandler() {
@@ -26,7 +26,7 @@ function StartGameScreen({ onStartGameHandler }: StartGameScreenInput) {
       return;
     }
 
-    onStartGameHandler(chosenNumber);
+    onStartGame(chosenNumber);
   }
 
   return (
@@ -40,12 +40,10 @@ function StartGameScreen({ onStartGameHandler }: StartGameScreenInput) {
       ></TextInput>
       <View style={styles.buttonContainer}>
         <View style={styles.singleButtonContainer}>
-          <PrimaryButton onPressHandler={resetInputHandler}>
-            Reset
-          </PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.singleButtonContainer}>
-          <PrimaryButton onPressHandler={startGameHandler}>Start</PrimaryButton>
+          <PrimaryButton onPress={startGameHandler}>Start</PrimaryButton>
         </View>
       </View>
     </View>

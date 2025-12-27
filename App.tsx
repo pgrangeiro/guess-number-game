@@ -5,6 +5,7 @@ import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color } from "./utils/colors";
+import GameOverScreen from "./screens/GameOverScreen";
 
 interface UserGame {
   hasStarted: boolean;
@@ -19,22 +20,34 @@ export default function App() {
   });
   let currentScreen = (
     <SafeAreaView style={styles.screen}>
-      <StartGameScreen
-        onStartGameHandler={onStartGameHandler}
-      ></StartGameScreen>
+      <StartGameScreen onStartGame={onStartGameHandler}></StartGameScreen>
     </SafeAreaView>
   );
 
   if (game.hasStarted) {
     currentScreen = (
       <SafeAreaView style={styles.screen}>
-        <GameScreen chosenNumber={game.inputNumber!}></GameScreen>
+        <GameScreen
+          chosenNumber={game.inputNumber!}
+          onGameOver={onGameOverHandler}
+        ></GameScreen>
+      </SafeAreaView>
+    );
+  }
+  if (game.isOver) {
+    currentScreen = (
+      <SafeAreaView style={styles.screen}>
+        <GameOverScreen></GameOverScreen>
       </SafeAreaView>
     );
   }
 
   function onStartGameHandler(inputNumber: number) {
     setGame({ hasStarted: true, isOver: false, inputNumber });
+  }
+
+  function onGameOverHandler(inputNumber: number) {
+    setGame({ hasStarted: true, isOver: true, inputNumber });
   }
 
   return (
