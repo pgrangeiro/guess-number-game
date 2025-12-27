@@ -6,6 +6,7 @@ import GuessContainer from "../components/game/GuessContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 enum MinMaxNumber {
   MIN = 1,
@@ -91,10 +92,10 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
         <InstructionText>Higher or Lower?</InstructionText>
         <View style={styles.buttonContainer}>
           <PrimaryButton onPress={() => onNextGuessHandler(Direction.LOWER)}>
-            -
+            <AntDesign name="minus" size={16}></AntDesign>
           </PrimaryButton>
           <PrimaryButton onPress={() => onNextGuessHandler(Direction.HIGHER)}>
-            +
+            <AntDesign name="plus" size={16}></AntDesign>
           </PrimaryButton>
         </View>
       </Card>
