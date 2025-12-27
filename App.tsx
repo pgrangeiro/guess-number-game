@@ -8,11 +8,15 @@ import { Color } from "./utils/colors";
 
 interface UserGame {
   hasStarted: boolean;
+  isOver: boolean;
   inputNumber?: number;
 }
 
 export default function App() {
-  const [game, setGame] = useState<UserGame>({ hasStarted: false });
+  const [game, setGame] = useState<UserGame>({
+    hasStarted: false,
+    isOver: false,
+  });
   let currentScreen = (
     <SafeAreaView style={styles.screen}>
       <StartGameScreen
@@ -24,13 +28,13 @@ export default function App() {
   if (game.hasStarted) {
     currentScreen = (
       <SafeAreaView style={styles.screen}>
-        <GameScreen></GameScreen>
+        <GameScreen chosenNumber={game.inputNumber!}></GameScreen>
       </SafeAreaView>
     );
   }
 
   function onStartGameHandler(inputNumber: number) {
-    setGame({ hasStarted: true, inputNumber });
+    setGame({ hasStarted: true, isOver: false, inputNumber });
   }
 
   return (

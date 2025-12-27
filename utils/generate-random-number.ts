@@ -1,4 +1,4 @@
-const generateRandumNumber = (
+const generateRandomNumber = (
   min: number,
   max: number,
   exclude?: number
@@ -6,10 +6,10 @@ const generateRandumNumber = (
   const randomNumber = Math.floor(Math.random() * (max - min)) + min;
 
   if (randomNumber === exclude) {
-    return generateRandumNumber(min, max, exclude);
+    return generateRandomNumber(min, max, exclude);
   }
 
   return randomNumber;
 };
 
-export { generateRandumNumber };
+export { generateRandomNumber };
