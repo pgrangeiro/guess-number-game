@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   buttonContainer: {
-    flex: 1,
     flexDirection: "row",
   },
 });
