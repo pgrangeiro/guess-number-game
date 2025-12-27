@@ -34,6 +34,7 @@ export default function App() {
       </SafeAreaView>
     );
   }
+
   if (game.isOver) {
     currentScreen = (
       <SafeAreaView style={styles.screen}>

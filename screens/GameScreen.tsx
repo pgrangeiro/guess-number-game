@@ -1,6 +1,6 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { generateRandomNumber } from "../utils/generate-random-number";
 import GuessContainer from "../components/game/GuessContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
@@ -37,6 +37,18 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
   );
   const [guessedNumber, setGuessedNumber] = useState(initialGuess);
 
+  useEffect(() => {
+    if (isGameOver()) {
+      Alert.alert("Nice Try Diddy!", "I won! You Lose!", [
+        {
+          text: "OK",
+          style: "destructive",
+          onPress: () => onGameOver(guessedNumber),
+        },
+      ]);
+    }
+  }, [guessedNumber, chosenNumber, onGameOver]);
+
   function isFairGame(selectedDirection: InputDirection): boolean {
     const direction = directionMap[selectedDirection];
     return (
@@ -45,7 +57,7 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
     );
   }
 
-  function isGameOver(guessedNumber: number): boolean {
+  function isGameOver(): boolean {
     return guessedNumber === chosenNumber;
   }
 
@@ -67,16 +79,6 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
       guessedNumber
     );
     setGuessedNumber(nextGuess);
-
-    if (isGameOver(nextGuess)) {
-      Alert.alert("Game Over!", "I won! You Lose!", [
-        {
-          text: "OK",
-          style: "destructive",
-          onPress: () => onGameOver(nextGuess),
-        },
-      ]);
-    }
   }
 
   return (
