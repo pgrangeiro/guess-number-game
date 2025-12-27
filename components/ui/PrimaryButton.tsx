@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { PropsWithChildren } from "react";
-import { Color } from "../utils/colors";
+import { Color } from "../../utils/colors";
 
 interface PrimartButtonInput extends PropsWithChildren {
   onPressHandler: () => void;

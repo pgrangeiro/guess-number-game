@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Text, StyleSheet } from "react-native";
-import { Color } from "../utils/colors";
+import { Color } from "../../utils/colors";
 
 function Title({ children }: PropsWithChildren) {
   return <Text style={styles.title}>{children}</Text>;
