@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { generateRandomNumber } from "../utils/generate-random-number";
 import GuessContainer from "../components/game/GuessContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 enum MinMaxNumber {
   MIN = 1,
@@ -85,9 +87,9 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
     <View style={styles.screen}>
       <Title>Oponnent's Guess</Title>
       <GuessContainer>{guessedNumber}</GuessContainer>
-      <View>
-        <Text>Higher or Lower?</Text>
-        <View>
+      <Card>
+        <InstructionText>Higher or Lower?</InstructionText>
+        <View style={styles.buttonContainer}>
           <PrimaryButton onPress={() => onNextGuessHandler(Direction.LOWER)}>
             -
           </PrimaryButton>
@@ -95,7 +97,7 @@ function GameScreen({ chosenNumber, onGameOver }: GameScreenInput) {
             +
           </PrimaryButton>
         </View>
-      </View>
+      </Card>
       <View></View>
     </View>
   );
@@ -105,6 +107,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 8,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
   },
 });
 

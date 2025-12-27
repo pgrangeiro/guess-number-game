@@ -25,6 +25,7 @@ function PrimaryButton({ children, onPress }: PrimartButtonInput) {
 
 const styles = StyleSheet.create({
   outerContainer: {
+    flex: 1,
     margin: 4,
   },
   innerContainer: {

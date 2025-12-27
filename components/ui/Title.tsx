@@ -8,6 +8,7 @@ function Title({ children }: PropsWithChildren) {
 const styles = StyleSheet.create({
   title: {
     padding: 8,
+    marginHorizontal: 24,
     fontSize: 24,
     fontWeight: "bold",
     color: Color.SECONDARY_500,

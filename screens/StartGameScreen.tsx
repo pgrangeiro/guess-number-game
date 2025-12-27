@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import { Color } from "../utils/colors";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Title from "../components/ui/Title";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 interface StartGameScreenInput {
   onStartGame: (inputNumber: number) => void;
@@ -30,48 +33,33 @@ function StartGameScreen({ onStartGame }: StartGameScreenInput) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.textInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        value={inputNumber}
-        onChangeText={setInputNumber}
-      ></TextInput>
-      <View style={styles.buttonContainer}>
-        <View style={styles.singleButtonContainer}>
+    <View style={styles.screen}>
+      <Title>Guess a Number</Title>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
+        <TextInput
+          style={styles.textInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          value={inputNumber}
+          onChangeText={setInputNumber}
+        ></TextInput>
+        <View style={styles.buttonContainer}>
           <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-        </View>
-        <View style={styles.singleButtonContainer}>
           <PrimaryButton onPress={startGameHandler}>Start</PrimaryButton>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 24,
-    padding: 16,
-    backgroundColor: Color.PRIMARY_500,
-    borderRadius: 8,
-    elevation: 4,
-    shadowColor: Color.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+  screen: {
+    flex: 1,
+    padding: 8,
   },
   buttonContainer: {
     flexDirection: "row",
-  },
-  singleButtonContainer: {
-    flex: 1,
   },
   textInput: {
     height: 64,
